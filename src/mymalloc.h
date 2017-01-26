@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Mon Jan 23 17:14:55 2017 Brout
+** Last update Thu Jan 26 20:08:04 2017 Brout
 */
 
 #ifndef MYMALLOC_H_
@@ -15,20 +15,13 @@
 # include <stdbool.h>
 
 typedef struct s_node	t_node;
-typedef struct s_header t_header;
 
-struct			s_header
+struct			s_node
 {
   size_t		size;
   bool			used;
   t_node		*prev;
   t_node		*next;
-};
-
-struct			s_node
-{
-  t_header		header;
-  void			*data;
 };
 
 #endif /* MYMALLOC_H_ */

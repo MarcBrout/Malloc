@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Mon Jan 23 19:00:50 2017 Brout
+** Last update Thu Jan 26 20:43:57 2017 Brout
 */
 
 #include <unistd.h>
@@ -13,39 +13,26 @@
 #include <stdint.h>
 #include "mymalloc.h"
 
+static t_node *root = NULL;
+
 t_node *create_node(t_node *next, t_node *prev, size_t size, bool used)
 {
   t_node *node;
 
-  if ((node = sbrk(sizeof(t_header) + size)) == (void *) -1)
+  if ((node = sbrk(sizeof(t_node) + size)) == (void *) -1)
     return (NULL);
-  node->header.next = next;
-  node->header.prev = prev;
-  node->header.size = size;
-  node->header.used = used;
+  node->next = next;
+  node->prev = prev;
+  node->size = size;
+  node->used = used;
   return (node);
-}
-
-void set_data_addr_of(t_node *addr)
-{
-  uintptr_t value;
-
-  value = (uintptr_t) addr;
-  printf("value = %u\n", value);
-  printf("addr = %d\n", (uintptr_t) addr);
-  value += sizeof(t_header);
-  printf("addr + value = %u\n", value);
-  addr->data = (void *) value;
 }
 
 void *set_new_node(t_node *prev, size_t size)
 {
-  t_node *node;
-  
-  if ((node = create_node(NULL, prev, size, true)) == NULL)
+  if ((prev->next = create_node(NULL, prev, size, true)) == NULL)
     return (NULL);
-  set_data_addr_of(node);
-  return (node);
+  return ((void*)((uintptr_t) prev->next) + sizeof(t_node));
 }
 
 void *replace_node(t_node *cur, size_t size)
@@ -55,64 +42,66 @@ void *replace_node(t_node *cur, size_t size)
   return (cur);
 }
 
-void *add_node(t_node *roo, size_t size)
+void *add_node(size_t size)
 {
   t_node *cur;
 
-  cur = roo;
-  while (cur->header.next)
+  cur = root;
+  while (cur->next)
     {
-      if (!cur->header.used && cur->header.size >= size)
+      if (!cur->used && cur->size >= size)
 	return (replace_node(cur, size));
-      cur = cur->header.next;
+      cur = cur->next;
     }
-  if (!cur->header.used && cur->header.size >= size)
+  if (!cur->used && cur->size >= size)
     return (replace_node(cur, size));
   return (set_new_node(cur, size));
 }
 
-void *set_root(t_node **roo , size_t size)
+void *set_root(size_t size)
 {
-  if ((*roo  = create_node(NULL, NULL, size, true)) == NULL)
+  if ((root = create_node(NULL, NULL, size, true)) == NULL)
     return (NULL);
-  set_data_addr_of(*roo);
-  return ((*roo)->data);
+  printf("size = %d\n", sizeof(t_node));
+  printf("addrr root = %p\n", root);
+  printf("addrr data = %p\n", (void*)((uintptr_t)root + sizeof(t_node)));
+  return ((void*)((uintptr_t)root + sizeof(t_node)));
 }
-
-static t_node *root = NULL;
 
 void *malloc(size_t size)
 {
   size += size % sizeof(long);
   if (!root)
-    return (set_root(&root, size));
-  return (add_node(root, size));
+    return (set_root(size));
+  return (add_node(size));
 }
 
 void free(void *ptr)
 {
   t_node *cur;
 
-  printf("ptr = %p\n", ptr);
+  printf("CALLING FREE\n");
   if (ptr)
     {
       cur = root;
       while (cur)
 	{
-	  printf("cur->data = %p\n", cur->data);
-	  if (cur->data == ptr)
+	  printf("cur->data = %p\n", cur);
+	  if ((void*)((uintptr_t)cur + sizeof(t_node)) == ptr)
 	    {
 	      printf("free\n");
-	      cur->header.used = false;
+	      cur->used = false;
 	      break;
 	    }
-	  cur = cur->header.next;
+	  cur = cur->next;
 	}
     }
 }
 
 int main()
 {
+  void *brak = sbrk(0);
+  printf("break = %p\n", brak);
   int *test = malloc(sizeof(*test));
   *test = 5;
   printf("%d\n", *test);
@@ -128,8 +117,8 @@ int main()
     }
   printf("%d\n", *test2);
   printf("%d\n", *test);
-  free(test);
-  free(test2);
-  free(test3);
+  //  free(test);
+  //free(test3);
+  //free(test2);
   return (0);
 }
