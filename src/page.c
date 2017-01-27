@@ -8,9 +8,9 @@
 ** Last update Fri Jan 27 18:33:46 2017 Benjamin DUHIEU
 */
 
-#include "mymalloc.h"
 #include <stdint.h>
 #include <unistd.h>
+#include "mymalloc.h"
 
 extern t_page *root;
 

@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Fri Jan 27 18:33:21 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 16:29:27 2017 Brout
 */
 
 #ifndef MYMALLOC_H_
@@ -55,6 +55,7 @@ void	*add_page(size_t size);
 */
 void	free(void *ptr);
 bool	free_node(t_node *start, void *ptr);
+void	show_alloc_mem();
 
 /*
 ** src/myrealloc.c
