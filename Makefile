@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Fri Jan 27 13:55:03 2017 Brout
+## Last update Fri Jan 27 16:03:46 2017 Brout
 ##
 
 MAKE_DIR=	./
@@ -29,7 +29,7 @@ CFLAGS=		-I$(INC) -fPIC
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) -fPIC -shared
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ)
 
 all: $(NAME)
 
