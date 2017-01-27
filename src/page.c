@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 18:03:08 2017 Brout
+** Last update Fri Jan 27 18:37:22 2017 Brout
 */
 
 #include <stdint.h>
@@ -17,7 +17,7 @@ extern t_page *root;
 t_page *create_page(t_page *next, int size, int size_left)
 {
   t_page *node;
-  
+
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
   node->next = next;
@@ -30,7 +30,7 @@ t_page *create_page(t_page *next, int size, int size_left)
 t_page *create_big_page(t_page *next, int size, int size_left)
 {
   t_page *node;
-  
+
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
   node->next = next;
