@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Fri Jan 27 18:46:21 2017 Brout
+** Last update Fri Jan 27 21:30:33 2017 Brout
 */
 
 #ifndef MYMALLOC_H_
@@ -26,12 +26,12 @@ struct			s_node
 typedef struct		s_page
 {
   struct s_page		*next;
-  int			size;
-  int			size_left;
+  size_t		size;
+  size_t		size_left;
   t_node		root;
 }			t_page;
 
-static t_page *root = NULL;
+extern t_page *root;
 
 /*
 ** src/mymalloc.c
