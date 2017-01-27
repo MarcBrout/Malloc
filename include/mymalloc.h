@@ -20,7 +20,6 @@ struct			s_node
 {
   size_t		size;
   bool			used;
-  t_node		*prev;
   t_node		*next;
 };
 
@@ -31,5 +30,11 @@ typedef struct s_page
   int size_left;
   t_node root;
 }		t_page;
+
+t_node	*create_node(t_node *cur, t_node *next, size_t size, bool used);
+void	*set_new_node(t_node *cur, size_t size);
+void	*replace_node(t_node *cur, size_t size);
+void	*add_node(t_node *start, size_t size, size_t totalSize);
+void	free_node(t_node *start, void *ptr);
 
 #endif /* MYMALLOC_H_ */
