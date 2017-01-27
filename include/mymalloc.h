@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Thu Jan 26 20:08:04 2017 Brout
+** Last update Fri Jan 27 15:16:56 2017 Benjamin DUHIEU
 */
 
 #ifndef MYMALLOC_H_
@@ -23,5 +23,13 @@ struct			s_node
   t_node		*prev;
   t_node		*next;
 };
+
+typedef struct s_page
+{
+  struct s_page *next;
+  int size;
+  int size_left;
+  t_node root;
+}		t_page;
 
 #endif /* MYMALLOC_H_ */

@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Thu Jan 26 20:43:57 2017 Brout
+** Last update Fri Jan 27 14:28:12 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -62,18 +62,7 @@ void *set_root(size_t size)
 {
   if ((root = create_node(NULL, NULL, size, true)) == NULL)
     return (NULL);
-  //printf("size = %d\n", sizeof(t_node));
-  //printf("addrr root = %p\n", root);
-  //printf("addrr data = %p\n", (void*)((uintptr_t)root + sizeof(t_node)));
   return ((void*)((uintptr_t)root + sizeof(t_node)));
-}
-
-void *malloc(size_t size)
-{
-  size += size % sizeof(long);
-  if (!root)
-    return (set_root(size));
-  return (add_node(size));
 }
 
 void free(void *ptr)
