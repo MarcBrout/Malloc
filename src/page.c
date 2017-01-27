@@ -5,14 +5,14 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 17:33:36 2017 Brout
+** Last update Fri Jan 27 18:03:08 2017 Brout
 */
 
-#include "mymalloc.h"
 #include <stdint.h>
 #include <unistd.h>
+#include "mymalloc.h"
 
-static t_page *root = NULL;
+extern t_page *root;
 
 t_page *create_page(t_page *next, int size, int size_left)
 {
