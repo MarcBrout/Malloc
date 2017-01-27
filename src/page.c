@@ -91,7 +91,7 @@ void *malloc(size_t size)
 {
   t_page *tmp;
 
-  size += size % sizeof(long)
+  size += size % sizeof(long);
   if (!root)
     return (set_node_page(size, root));
   return (add_page(size)); 
