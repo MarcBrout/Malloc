@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Fri Jan 27 15:16:56 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 16:29:27 2017 Brout
 */
 
 #ifndef MYMALLOC_H_
@@ -35,6 +35,6 @@ t_node	*create_node(t_node *cur, t_node *next, size_t size, bool used);
 void	*set_new_node(t_node *cur, size_t size);
 void	*replace_node(t_node *cur, size_t size);
 void	*add_node(t_node *start, size_t size, size_t totalSize);
-void	free_node(t_node *start, void *ptr);
+bool	free_node(t_node *start, void *ptr);
 
 #endif /* MYMALLOC_H_ */
