@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 18:33:46 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 18:46:39 2017 Brout
 */
 
 #include <stdint.h>
@@ -14,7 +14,7 @@
 
 extern t_page *root;
 
-t_page		*create_page(t_page *next, int size, int size_left)
+static t_page	*create_page(t_page *next, int size, int size_left)
 {
   t_page	*node;
 
@@ -27,7 +27,7 @@ t_page		*create_page(t_page *next, int size, int size_left)
   return (node);
 }
 
-t_page		*create_big_page(t_page *next, int size, int size_left)
+static t_page	*create_big_page(t_page *next, int size, int size_left)
 {
   t_page	*node;
 
@@ -40,7 +40,7 @@ t_page		*create_big_page(t_page *next, int size, int size_left)
   return (node);
 }
 
-void *set_node_page(size_t size, t_page **node)
+void		*set_node_page(size_t size, t_page **node)
 {
   if (size + sizeof(t_page) > getpagesize())
     {
@@ -91,35 +91,35 @@ void		*add_page(size_t size)
   return (pos);
 }
 
-int main()
-{
-	int *test = malloc(sizeof(int));
+/* int main() */
+/* { */
+/* 	int *test = malloc(sizeof(int)); */
 
-	t_node *node = malloc(sizeof(t_node) * 1000);
-	char *str = malloc(sizeof(char) * 10);
+/* 	t_node *node = malloc(sizeof(t_node) * 1000); */
+/* 	char *str = malloc(sizeof(char) * 10); */
 
-	*test = 10;
-	node->next = NULL;
-	node->size = 10;
-	node->used = false;
+/* 	*test = 10; */
+/* 	node->next = NULL; */
+/* 	node->size = 10; */
+/* 	node->used = false; */
 
-	free(node);
-	int *test2 = malloc(sizeof(int));
-	*test2 = 13;
-	str[0] = '0';
-	str[1] = '1';
-	str[2] = '2';
-	str[3] = '3';
-	str[4] = '4';
-	str[5] = '5';
-	str[6] = '6';
-	str[7] = '7';
-	str[8] = '8';
-	str[9] = '9';
-	int *test3 = malloc(sizeof(int));
+/* 	free(node); */
+/* 	int *test2 = malloc(sizeof(int)); */
+/* 	*test2 = 13; */
+/* 	str[0] = '0'; */
+/* 	str[1] = '1'; */
+/* 	str[2] = '2'; */
+/* 	str[3] = '3'; */
+/* 	str[4] = '4'; */
+/* 	str[5] = '5'; */
+/* 	str[6] = '6'; */
+/* 	str[7] = '7'; */
+/* 	str[8] = '8'; */
+/* 	str[9] = '9'; */
+/* 	int *test3 = malloc(sizeof(int)); */
 
-	free(test);
-	free(test2);
-	free(str);
-	return (0);
-}
+/* 	free(test); */
+/* 	free(test2); */
+/* 	free(str); */
+/* 	return (0); */
+/* } */
