@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 16:31:38 2017 Brout
+** Last update Fri Jan 27 16:00:50 2017 Benjamin DUHIEU
 */
 
 #include "mymalloc.h"
@@ -17,7 +17,7 @@ static t_page *root = NULL;
 t_page *create_page(t_page *next, int size, int size_left)
 {
   t_page *node;
-  
+
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
   node->next = next;
@@ -30,7 +30,7 @@ t_page *create_page(t_page *next, int size, int size_left)
 t_page *create_big_page(t_page *next, int size, int size_left)
 {
   t_page *node;
-  
+
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
   node->next = next;
@@ -40,7 +40,7 @@ t_page *create_big_page(t_page *next, int size, int size_left)
   return (node);
 }
 
-void *set_node_page(size_t size, t_page *node)
+void *set_root_page(size_t size, t_page *node)
 {
   if (size + sizeof(t_page) > getpagesize())
     {
@@ -54,19 +54,19 @@ void *set_node_page(size_t size, t_page *node)
     }
   return ((void *)((uintptr_t)node + sizeof(t_page)));
 }
- 
+
 void *add_page(size_t size)
 {
   t_page *tmp;
   t_page *new_page;
   void *pos;
-  
+
   tmp = root;
   while (tmp->next)
     {
       if (tmp->size_left > size)
 	{
-	  if ((pos = add_node(&tmp->root, size, tmp->size)) == NULL)
+	  if ((pos = add_node(tmp->root, size, tmp->size)) == NULL)
 	    {
 	      tmp = tmp->next;
 	      continue;
@@ -77,10 +77,10 @@ void *add_page(size_t size)
     }
   if (tmp->size_left > size)
     {
-      if ((pos = add_node(&tmp->root, size, tmp->size)) == NULL)
+      if ((pos = add_node(tmp->root, size, tmp->size)) == NULL)
 	{
-	  pos = set_node_page(size, new_page);
-	  tmp->next = new_page;
+	  pos = set_node_page(size, new_node);
+	  tmp->next = new_node;
 	}
       else
 	return pos;
@@ -94,7 +94,7 @@ void *malloc(size_t size)
   size += size % sizeof(long);
   if (!root)
     return (set_node_page(size, root));
-  return (add_page(size)); 
+  return (add_page(size));
 }
 
 void free(void *ptr)
@@ -102,7 +102,7 @@ void free(void *ptr)
   t_page *tmp;
 
   tmp = root;
-  while (tmp && !free_node(&tmp->root, ptr))
+  while (tmp && !free_node(tmp->root, ptr))
     {
       tmp = tmp->next;
     }
