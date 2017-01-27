@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Fri Jan 27 14:28:12 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 18:32:44 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include "mymalloc.h"
 
-static t_node *root = NULL;
+extern t_page *root;
 
 t_node		*create_node(t_node *cur, t_node *next,
 			     size_t size, bool used)
@@ -71,19 +71,12 @@ void		*add_node(t_node *start, size_t size, size_t totalSize)
   return (NULL);
 }
 
-bool		free_node(t_node *start, void *ptr)
+void		*malloc(size_t size)
 {
-  t_node	*cur;
+  t_page	*tmp;
 
-  cur = start;
-  while (cur)
-    {
-      if ((void*)((uintptr_t)cur + sizeof(t_node)) == ptr)
-	{
-	  cur->used = false;
-	  return (true);
-	}
-      cur = cur->next;
-    }
-  return (false);
+  size += size % sizeof(long);
+  if (!root)
+    return (set_node_page(size, &root));
+  return (add_page(size)); 
 }

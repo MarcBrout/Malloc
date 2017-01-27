@@ -5,18 +5,18 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 16:00:50 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 18:33:46 2017 Benjamin DUHIEU
 */
 
 #include "mymalloc.h"
 #include <stdint.h>
 #include <unistd.h>
 
-static t_page *root = NULL;
+extern t_page *root;
 
-t_page *create_page(t_page *next, int size, int size_left)
+t_page		*create_page(t_page *next, int size, int size_left)
 {
-  t_page *node;
+  t_page	*node;
 
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
@@ -27,9 +27,9 @@ t_page *create_page(t_page *next, int size, int size_left)
   return (node);
 }
 
-t_page *create_big_page(t_page *next, int size, int size_left)
+t_page		*create_big_page(t_page *next, int size, int size_left)
 {
-  t_page *node;
+  t_page	*node;
 
   if ((node = sbrk(size)) == (void *) -1)
 	return (NULL);
@@ -55,11 +55,11 @@ void *set_node_page(size_t size, t_page **node)
   return ((void *)((uintptr_t)(*node) + sizeof(t_page)));
 }
  
-void *add_page(size_t size)
+void		*add_page(size_t size)
 {
-  t_page *tmp;
-  t_page *new_page;
-  void *pos;
+  t_page	*tmp;
+  t_page	*new_page;
+  void		*pos;
   
   tmp = root;
   while (tmp->next)
@@ -91,31 +91,10 @@ void *add_page(size_t size)
   return (pos);
 }
 
-void *malloc(size_t size)
-{
-  t_page *tmp;
-
-  size += size % sizeof(long);
-  if (!root)
-    return (set_node_page(size, &root));
-  return (add_page(size)); 
-}
-
-void free(void *ptr)
-{
-  t_page *tmp;
-
-  tmp = root;
-  while (tmp && !free_node(&tmp->root, ptr))
-    {
-      tmp = tmp->next;
-    }
-}
-
-/*
 int main()
 {
 	int *test = malloc(sizeof(int));
+
 	t_node *node = malloc(sizeof(t_node) * 1000);
 	char *str = malloc(sizeof(char) * 10);
 
@@ -144,4 +123,3 @@ int main()
 	free(str);
 	return (0);
 }
-*/
