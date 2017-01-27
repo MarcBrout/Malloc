@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Fri Jan 27 13:41:20 2017 Brout
+## Last update Fri Jan 27 13:48:06 2017 Brout
 ##
 
 MAKE_DIR=	./
@@ -24,7 +24,7 @@ INC=		./include
 
 CC=		gcc
 
-CFLAGS=		-I$(INC)
+CFLAGS=		-I$(INC) -shared
 
 RM=		rm -rf
 
