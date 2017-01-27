@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Fri Jan 27 14:28:12 2017 Benjamin DUHIEU
+** Last update Fri Jan 27 18:38:44 2017 Brout
 */
 
 #include <unistd.h>
@@ -24,7 +24,7 @@ t_node		*create_node(t_node *cur, t_node *next,
   return (cur);
 }
 
-void		*set_new_node(t_node *cur, size_t size)
+static void		*set_new_node(t_node *cur, size_t size)
 {
   if ((cur->next =
        create_node((t_node*)(((uintptr_t)cur) + sizeof(t_node) + cur->size),
