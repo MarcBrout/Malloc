@@ -62,9 +62,9 @@ void *set_root(size_t size)
 {
   if ((root = create_node(NULL, NULL, size, true)) == NULL)
     return (NULL);
-  printf("size = %d\n", sizeof(t_node));
-  printf("addrr root = %p\n", root);
-  printf("addrr data = %p\n", (void*)((uintptr_t)root + sizeof(t_node)));
+  //printf("size = %d\n", sizeof(t_node));
+  //printf("addrr root = %p\n", root);
+  //printf("addrr data = %p\n", (void*)((uintptr_t)root + sizeof(t_node)));
   return ((void*)((uintptr_t)root + sizeof(t_node)));
 }
 
@@ -80,16 +80,16 @@ void free(void *ptr)
 {
   t_node *cur;
 
-  printf("CALLING FREE\n");
+  //printf("CALLING FREE\n");
   if (ptr)
     {
       cur = root;
       while (cur)
 	{
-	  printf("cur->data = %p\n", cur);
+	  //printf("cur->data = %p\n", cur);
 	  if ((void*)((uintptr_t)cur + sizeof(t_node)) == ptr)
 	    {
-	      printf("free\n");
+	     // printf("free\n");
 	      cur->used = false;
 	      break;
 	    }
@@ -101,24 +101,24 @@ void free(void *ptr)
 int main()
 {
   void *brak = sbrk(0);
-  printf("break = %p\n", brak);
-  int *test = malloc(sizeof(*test));
+  //printf("break = %p\n", brak);
+  int *test = malloc(sizeof(int));
   *test = 5;
-  printf("%d\n", *test);
+  //printf("%d\n", *test);
   int *test2 = malloc(sizeof(*test2));
   *test2 = 4;
-  printf("%d\n", *test2);
+  //printf("%d\n", *test2);
   int *test3 = malloc(sizeof(*test3) * 2);
   test3[0] = 1;
   test3[1] = 3;
   for (int i = 0; i < 2; i++)
     {
-      printf("test[%d] = %d\n", i, test3[i]); 
+      //printf("test[%d] = %d\n", i, test3[i]);
     }
-  printf("%d\n", *test2);
-  printf("%d\n", *test);
-  //  free(test);
-  //free(test3);
-  //free(test2);
+  //printf("%d\n", *test2);
+  //printf("%d\n", *test);
+  free(test);
+  free(test3);
+  free(test2);
   return (0);
 }
