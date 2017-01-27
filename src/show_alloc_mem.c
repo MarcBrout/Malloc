@@ -5,18 +5,19 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Fri Jan 27 17:53:14 2017 Brout
-** Last update Fri Jan 27 18:28:27 2017 Brout
+** Last update Fri Jan 27 18:31:32 2017 Brout
 */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdint.h>
 #include "mymalloc.h"
 
 extern t_page * root;
 
-static void printNode(t_node *node)
+static void printNode(t_node const * const node)
 {
-  printf("%p - %p : %u bytes\n", node, (void*)((uintptr_t)(node) +
+  printf("%p - %p : %u bytes\n", node, (void*)((const uintptr_t)(node) +
 					       sizeof(t_node) + node->size),
 	 sizeof(t_node) + node->size);
 }
@@ -30,7 +31,7 @@ void show_alloc_mem()
   curPage = root;
   while (curPage)
     {
-      curNode = curPage->root;
+      curNode = &curPage->root;
       while (curNode)
 	{
 	  printNode(curNode);
