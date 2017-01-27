@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Fri Jan 27 13:48:06 2017 Brout
+## Last update Fri Jan 27 13:54:17 2017 Benjamin DUHIEU
 ##
 
 MAKE_DIR=	./
@@ -24,13 +24,12 @@ INC=		./include
 
 CC=		gcc
 
-CFLAGS=		-I$(INC) -shared
+CFLAGS=		-I$(INC) -fPIC
 
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ)
 
 all: $(NAME)
 
