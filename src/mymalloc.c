@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Fri Jan 27 23:47:27 2017 Brout
+** Last update Sat Jan 28 00:10:55 2017 Brout
 */
 
 #include <unistd.h>
@@ -92,7 +92,7 @@ void		*add_node(t_node *start, size_t size, size_t totalSize)
 
 void		*malloc(size_t size)
 {
-  show_alloc_mem(); 
+  //show_alloc_mem(); 
   //  putHexa(size, "0123456789");
   //  write(1, "\n", 1);
   size += size % sizeof(long);
