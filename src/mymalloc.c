@@ -71,7 +71,7 @@ void		*add_node(t_node *start, size_t size, size_t totalSize)
   return (NULL);
 }
 
-bool free_node(t_node *start, void *ptr)
+bool		free_node(t_node *start, void *ptr)
 {
   t_node	*cur;
 
