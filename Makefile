@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Fri Jan 27 18:27:34 2017 Benjamin DUHIEU
+## Last update Fri Jan 27 23:59:02 2017 Brout
 ##
 
 MAKE_DIR=	./
@@ -17,7 +17,8 @@ SRC_DIR=	./src/
 SRC_FIL=	mymalloc.c \
 		page.c \
 		myfree.c \
-		myrealloc.c
+		myrealloc.c \
+		show_alloc_mem.c
 
 SRC= 		$(addprefix $(SRC_DIR), $(SRC_FIL))
 
@@ -27,12 +28,12 @@ INC=		./include
 
 CC=		gcc
 
-CFLAGS=		-I$(INC) -fPIC
+CFLAGS=		-I$(INC) -fPIC -g
 
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) -fPIC -shared $(OBJ)
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g
 
 all: $(NAME)
 

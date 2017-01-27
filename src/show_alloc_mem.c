@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Fri Jan 27 17:53:14 2017 Brout
-** Last update Fri Jan 27 22:01:01 2017 Brout
+** Last update Fri Jan 27 22:14:06 2017 Brout
 */
 
 #include <stdio.h>
@@ -16,7 +16,7 @@
 
 extern t_page *   root;
 
-static void putHexa(size_t nb, char *str)
+void putHexa(size_t nb, char const * const str)
 {
   if (nb / strlen(str))
     putHexa(nb / strlen(str), str);

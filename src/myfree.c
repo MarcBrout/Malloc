@@ -5,9 +5,10 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 18:56:11 2017 Brout
+** Last update Fri Jan 27 23:49:55 2017 Brout
 */
 
+#include <unistd.h>
 #include <stdint.h>
 #include "mymalloc.h"
 
@@ -18,6 +19,7 @@ void		free(void *ptr)
   t_page	*tmp;
 
   tmp = root;
+  //  write(1, "FREE!\n", 6);
   while (tmp && !free_node(&tmp->root, ptr))
     {
       tmp = tmp->next;

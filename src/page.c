@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Fri Jan 27 22:02:24 2017 Brout
+** Last update Fri Jan 27 23:47:48 2017 Brout
 */
 
 #include <stdint.h>
@@ -62,6 +62,10 @@ void		*add_page(size_t size)
   void		*pos;
   
   tmp = root;
+  //  write(1, "add_page = ", 11);
+  //  putHexa(size, "0123456789");
+  //  write(1, "\n", 1);
+
   while (tmp->next)
     {
       if (tmp->size_left > size)
@@ -71,6 +75,8 @@ void		*add_page(size_t size)
 	      tmp = tmp->next;
 	      continue;
 	    }
+	  //	  write(1, "pas NULL\n", 9);
+	  //	  putHexa((uintptr_t)pos, "0123456789ABCDEF"); 
 	  return pos;
 	}
       tmp = tmp->next;
@@ -90,51 +96,3 @@ void		*add_page(size_t size)
     }
   return (pos);
 }
-/*
-int main()
-{
-  show_alloc_mem();
-  
-  int *test = malloc(sizeof(int));  
-  t_node *node = malloc(sizeof(t_node) * 1000);
-  char *str = malloc(sizeof(char) * 10);
-  
-  *test = 10;
-  node->next = NULL;
-  node->size = 10;
-  node->used = false;
-  
-  show_alloc_mem();
-  
-  free(node);
-  
-  int *test2 = malloc(sizeof(int));
-
-  show_alloc_mem();
-
-  *test2 = 13;
-  str[0] = '0';
-  str[1] = '1';
-  str[2] = '2';
-  str[3] = '3';
-  str[4] = '4';
-  str[5] = '5';
-  str[6] = '6';
-  str[7] = '7';
-  str[8] = '8';
-  str[9] = '9';
-
-  int *test3 = malloc(sizeof(int));
-  
-  show_alloc_mem();
-  free(test);
-  show_alloc_mem();
-  free(test2);
-  show_alloc_mem();
-  free(str);
-  show_alloc_mem();
-  free(test3);
-  show_alloc_mem();
-  return (0);
-}
-*/
