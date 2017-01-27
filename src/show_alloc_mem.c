@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Fri Jan 27 17:53:14 2017 Brout
-** Last update Fri Jan 27 18:26:47 2017 Brout
+** Last update Fri Jan 27 18:28:27 2017 Brout
 */
 
 #include <stdio.h>
@@ -16,7 +16,7 @@ extern t_page * root;
 
 static void printNode(t_node *node)
 {
-  printf("%X - %X : %u bytes\n", node, (void*)((uintptr_t)(node) +
+  printf("%p - %p : %u bytes\n", node, (void*)((uintptr_t)(node) +
 					       sizeof(t_node) + node->size),
 	 sizeof(t_node) + node->size);
 }
