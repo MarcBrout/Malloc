@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Sat Jan 28 00:04:13 2017 Brout
+** Last update Mon Jan 30 14:51:23 2017 marc brout
 */
 
 #include <string.h>
@@ -15,8 +15,7 @@ void	*realloc(void *ptr, size_t size)
 {
   void	*cpy;
 
-  if (size)
-    cpy = malloc(size);
+  cpy = malloc(size);
   if (ptr && size)
     cpy = memcpy(cpy, ptr, size);
   if (ptr)
