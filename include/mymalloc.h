@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Fri Jan 27 22:13:55 2017 Brout
+** Last update Sun Jan 29 13:49:21 2017 marc brout
 */
 
 #ifndef MYMALLOC_H_
@@ -37,7 +37,7 @@ extern t_page *root;
 ** src/mymalloc.c
 */
 t_node	*create_node(t_node *cur, t_node *next, size_t size, bool used);
-void	*add_node(t_node *start, size_t size, size_t totalSize);
+void	*add_node(t_node *start, size_t size, t_page *page);
 void	*malloc(size_t size);
 
 /*
@@ -50,7 +50,7 @@ void	*add_page(size_t size);
 ** src/myfree.c
 */
 void	free(void *ptr);
-bool	free_node(t_node *start, void *ptr);
+bool	free_node(t_page *start, void *ptr);
 
 /*
 ** src/show_alloc_mem.c
@@ -62,5 +62,10 @@ void	putHexa(size_t, char const * const);
 ** src/myrealloc.c
 */
 void	*realloc(void *ptr, size_t size);
+
+/*
+** src/mycalloc.c
+*/
+void	*calloc(size_t nmemb, size_t size);
 
 #endif /* MYMALLOC_H_ */

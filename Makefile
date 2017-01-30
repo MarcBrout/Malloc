@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Fri Jan 27 23:59:02 2017 Brout
+## Last update Sun Jan 29 11:54:52 2017 marc brout
 ##
 
 MAKE_DIR=	./
@@ -18,6 +18,7 @@ SRC_FIL=	mymalloc.c \
 		page.c \
 		myfree.c \
 		myrealloc.c \
+		mycalloc.c \
 		show_alloc_mem.c
 
 SRC= 		$(addprefix $(SRC_DIR), $(SRC_FIL))
