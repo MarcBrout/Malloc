@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Mon Jan 30 15:42:55 2017 marc brout
+** Last update Mon Jan 30 18:10:17 2017 marc brout
 */
 
 #include <unistd.h>
@@ -14,7 +14,8 @@
 #include <pthread.h>
 #include "mymalloc.h"
 
-t_page *root = NULL;
+t_page			*root = NULL;
+pthread_mutex_t		mutex = PTHREAD_MUTEX_INITIALIZER;
 
 t_node		*create_node(t_node *cur, t_node *next,
 			     size_t size, bool used)
@@ -72,18 +73,21 @@ static void	*replace_node(t_node *cur, size_t size, t_page *page)
   return ((void*)((uintptr_t) cur) + sizeof(t_node));
 }
 
-void		*add_node(t_node *start, size_t size, t_page *page)
+void		*add_node(size_t size, t_page *page)
 {
+  static int	i = 0;
   t_node	*cur;
-  size_t	acc;
+  //  size_t	acc;
+  cur = &page->root;
 
-  cur = start;
-  acc = sizeof(t_page) - sizeof(t_node);
-  while (cur->next && acc < page->size)
+  ++i;
+  //  acc = sizeof(t_page) - sizeof(t_node);
+  while (cur->next /*&& acc < page->size*/)
     {
-      if (!cur->used && cur->size > size)
-	return (replace_node(cur, size, page));
-      acc += cur->size + sizeof(t_node);
+            if (!cur->used && cur->size > size)
+      	return (replace_node(cur, size, page));
+      
+      //      acc += cur->size + sizeof(t_node);
       cur = cur->next;
     }
   //    write(1, "LASTONE\n", 8);
@@ -95,23 +99,28 @@ void		*add_node(t_node *start, size_t size, t_page *page)
   //  write(1, "page->size = ", 13);
   //  putHexa(page->size, "0123456789");
   //  write(1, "\n", 1);
-  if (!cur->used && cur->size > size)
-    return (replace_node(cur, size, page));
+    if (!cur->used && cur->size > size)
+      return (replace_node(cur, size, page));
  
   //  write(1, "add_node = ", 11);
-  //  putHexa(size, "0123456789");
+  //  putHexa(page->size - ((uintptr_t)cur - (uintptr_t)page), "0123456789");
+  //  write(1, " page->size = ", 14);
+  //  putHexa(page->size, "0123456789");
   //  write(1, "\n", 1);
 
-  if (acc < page->size && page->size - acc > size + sizeof(t_node) * 2)
+  //if (acc < page->size && page->size - acc > size + sizeof(t_node) * 2)
+  //  if (i == 24)
+  //    __asm__ volatile ("int $3");
+  if (((uintptr_t)cur + sizeof(t_node) + cur->size + sizeof(t_node) + size) -
+      (uintptr_t)page < page->size)
     return (set_new_node(cur, size, page));
-  //    write(1, "NULL\n", 5);
+
+  //  write(1, "NULL\n", 5);
   return (NULL);
 }
 
 void				*malloc(size_t size)
 {
-  static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
-
   pthread_mutex_lock(&mutex);
  //  show_alloc_mem();
   //  write(1, "MALLOC SIZE IN = ", strlen("MALLOC SIZE IN = "));

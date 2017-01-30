@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Sun Jan 29 11:54:52 2017 marc brout
+## Last update Mon Jan 30 18:08:10 2017 marc brout
 ##
 
 MAKE_DIR=	./
@@ -31,10 +31,12 @@ CC=		gcc
 
 CFLAGS=		-I$(INC) -fPIC -g
 
+LDFLAGS=	-pthread
+
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g $(LDFLAGS) -D_REENTRANT 
 
 all: $(NAME)
 

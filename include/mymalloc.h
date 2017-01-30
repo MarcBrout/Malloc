@@ -1,16 +1,17 @@
 /*
-** mymalloc.h in /home/brout_m/rendu/system/PSU_2016_malloc/src
+1;4402;0c** mymalloc.h in /home/brout_m/rendu/system/PSU_2016_malloc/src
 ** 
 ** Made by Brout
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Sun Jan 29 13:49:21 2017 marc brout
+** Last update Mon Jan 30 17:57:16 2017 marc brout
 */
 
 #ifndef MYMALLOC_H_
 # define MYMALLOC_H_
 
+# include <pthread.h>
 # include <stddef.h>
 # include <stdbool.h>
 
@@ -31,13 +32,14 @@ typedef struct		s_page
   t_node		root;
 }			t_page;
 
-extern t_page *root;
+extern t_page		*root;
+extern pthread_mutex_t	mutex;
 
 /*
 ** src/mymalloc.c
 */
 t_node	*create_node(t_node *cur, t_node *next, size_t size, bool used);
-void	*add_node(t_node *start, size_t size, t_page *page);
+void	*add_node(size_t size, t_page *page);
 void	*malloc(size_t size);
 
 /*

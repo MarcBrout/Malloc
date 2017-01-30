@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Mon Jan 30 15:39:09 2017 marc brout
+** Last update Mon Jan 30 18:11:02 2017 marc brout
 */
 
 #include <unistd.h>
@@ -13,11 +13,11 @@
 #include <pthread.h>
 #include "mymalloc.h"
 
-extern t_page *root;
+t_page			*root;
+pthread_mutex_t		mutex;
 
 void				free(void *ptr)
 {
-  static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
   t_page			*tmp;
 
   pthread_mutex_lock(&mutex);
