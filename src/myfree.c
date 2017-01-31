@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 11:05:35 2017 marc brout
+** Last update Tue Jan 31 13:31:18 2017 marc brout
 */
 
 #include <unistd.h>
@@ -18,10 +18,7 @@ pthread_mutex_t		mutex;
 
 static bool	page_is_free(t_page *toFree)
 {
-  t_node	*cur;
-
-  cur = &toFree->root;
-  return ((toFree->size_left == toFree->size - sizeof(t_page)) && !cur->used);
+  return ((toFree->size_left == toFree->size - sizeof(t_page)));
 }
 
 static void	node_fuse(t_page *start, t_node *cur)
@@ -77,12 +74,13 @@ void		free(void *ptr)
       prev = tmp;
       tmp = tmp->next;
     }
-  /*  if (!tmp->next && page_is_free(tmp))
+  if (tmp && !tmp->next && page_is_free(tmp))
     {
       if (prev)
 	prev->next = NULL;
+      else
+	root = NULL;
       sbrk(-tmp->size);
     }
-  */
   pthread_mutex_unlock(&mutex);
 }
