@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 13:31:18 2017 marc brout
+** Last update Tue Jan 31 14:13:53 2017 marc brout
 */
 
 #include <unistd.h>
@@ -39,7 +39,7 @@ static void	node_fuse(t_page *start, t_node *cur)
       cur->size += sizeof(t_node) + cur->next->size;
       cur->next = cur->next->next;
       if (cur->next)
-	  cur->next->prev = cur;
+	cur->next->prev = cur;
       start->size_left += sizeof(t_node);
     }
 }
