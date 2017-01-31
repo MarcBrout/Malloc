@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 12:33:16 2017 Benjamin DUHIEU
+** Last update Tue Jan 31 15:19:03 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -18,17 +18,14 @@ pthread_mutex_t		mutex;
 
 static bool	page_is_free(t_page *toFree)
 {
-  t_node	*cur;
-
-  cur = &toFree->root;
-  return ((toFree->size_left == toFree->size - sizeof(t_page)) && !cur->used);
+  return ((toFree->size_left == toFree->size - sizeof(t_page)));
 }
 
 static void	node_fuse(t_page *start, t_node *cur)
 {
   cur->used = false;
   start->size_left += cur->size;
-  /*  if (cur->prev && !cur->prev->used)
+  if (cur->prev && !cur->prev->used)
     {
       cur->prev->size += cur->size + sizeof(t_node);
       cur->prev->next = cur->next;
@@ -42,9 +39,9 @@ static void	node_fuse(t_page *start, t_node *cur)
       cur->size += sizeof(t_node) + cur->next->size;
       cur->next = cur->next->next;
       if (cur->next)
-	  cur->next->prev = cur;
+	cur->next->prev = cur;
       start->size_left += sizeof(t_node);
-      }*/
+    }
 }
 
 static bool	free_node(t_page *start, void *ptr)
@@ -81,7 +78,9 @@ void		free(void *ptr)
     {
       if (prev)
 	prev->next = NULL;
-      sbrk(tmp->size * (-1));
+      else
+	root = NULL;
+      sbrk(-tmp->size);
     }
   pthread_mutex_unlock(&mutex);
 }

@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Fri Jan 27 17:53:14 2017 Brout
-** Last update Fri Jan 27 22:14:06 2017 Brout
+** Last update Tue Jan 31 13:26:00 2017 marc brout
 */
 
 #include <stdio.h>
@@ -26,12 +26,12 @@ void putHexa(size_t nb, char const * const str)
 static void printNode(t_node *node)
 {
   write(1, "0x", 2);
-  putHexa((uintptr_t)node, "0123456789ABCDEF");
+  putHexa((uintptr_t)node + sizeof(t_node), "0123456789ABCDEF");
   write(1, " - 0x", 5);
   putHexa((uintptr_t)((uintptr_t)(node) +
 		      sizeof(t_node) + node->size), "0123456789ABCDEF");
   write(1, " : ", 3);
-  putHexa(sizeof(t_node) + node->size, "0123456789");
+  putHexa(node->size, "0123456789");
   write(1, " bytes\n", 7);
 }
 
