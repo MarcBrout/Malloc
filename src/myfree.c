@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 10:46:27 2017 marc brout
+** Last update Tue Jan 31 11:50:21 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -21,13 +21,7 @@ static bool	page_is_free(t_page *toFree)
   t_node	*cur;
 
   cur = &toFree->root;
-  while (cur)
-    {
-      if (cur->used)
-	return false;
-      cur = cur->next;
-    }
-  return true;
+  return ((toFree->size_left == toFree->size - sizeof(t_page)) && !cur->used);
 }
 
 static void	node_fuse(t_page *start, t_node *cur)
