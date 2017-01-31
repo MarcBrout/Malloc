@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Mon Jan 30 17:57:16 2017 marc brout
+** Last update Tue Jan 31 10:14:30 2017 marc brout
 */
 
 #ifndef MYMALLOC_H_
@@ -22,6 +22,7 @@ struct			s_node
   size_t		size;
   bool			used;
   t_node		*next;
+  t_node		*prev;
 };
 
 typedef struct		s_page
@@ -52,7 +53,6 @@ void	*add_page(size_t size);
 ** src/myfree.c
 */
 void	free(void *ptr);
-bool	free_node(t_page *start, void *ptr);
 
 /*
 ** src/show_alloc_mem.c

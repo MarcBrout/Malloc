@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Mon Jan 30 17:48:29 2017 marc brout
+** Last update Tue Jan 31 10:19:04 2017 marc brout
 */
 
 #include <stdint.h>
@@ -27,6 +27,7 @@ static t_page	*create_page(size_t size, size_t pageSize)
   putHexa(node->size_left, "0123456789");
   write(1, "\n", 1); */
   create_node(&node->root, NULL, size, true);
+  node->root.prev = NULL;
   return (node);
 }
 
