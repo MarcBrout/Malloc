@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 11:50:21 2017 Benjamin DUHIEU
+** Last update Tue Jan 31 11:05:35 2017 marc brout
 */
 
 #include <unistd.h>
@@ -67,16 +67,22 @@ static bool	free_node(t_page *start, void *ptr)
 void		free(void *ptr)
 {
   t_page	*tmp;
+  t_page	*prev;
 
   pthread_mutex_lock(&mutex);
   tmp = root;
+  prev = NULL;
   while (tmp && !free_node(tmp, ptr))
     {
+      prev = tmp;
       tmp = tmp->next;
     }
-  if (!tmp->next && page_is_free(tmp))
+  /*  if (!tmp->next && page_is_free(tmp))
     {
+      if (prev)
+	prev->next = NULL;
       sbrk(-tmp->size);
     }
+  */
   pthread_mutex_unlock(&mutex);
 }

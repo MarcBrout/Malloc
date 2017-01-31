@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Mon Jan 30 18:10:17 2017 marc brout
+** Last update Tue Jan 31 10:40:37 2017 marc brout
 */
 
 #include <unistd.h>
@@ -28,6 +28,7 @@ t_node		*create_node(t_node *cur, t_node *next,
   //  write(1, "AAE\n", 4);
   cur->used = used;
   //  write(1, "AAF\n", 4);
+  cur->prev = NULL;
   return (cur);
 }
 
@@ -37,6 +38,7 @@ static void	*set_new_node(t_node *cur, size_t size, t_page *page)
   cur->next =
     create_node((t_node*)(((uintptr_t)cur) + sizeof(t_node) + cur->size),
 		NULL, size, true);
+  cur->next->prev = cur;
   //  write(1, "NEWNODE\n", 8);
   page->size_left -= sizeof(t_node) + size;
   //  write(1, "AAB\n", 4);
@@ -66,6 +68,7 @@ static void	*replace_node(t_node *cur, size_t size, t_page *page)
 	  // write(1, "\n", 1);
 	  cur->size = size;
 	  cur->next = new;
+	  new->prev = cur;
 	  page->size_left -= sizeof(t_node);
 	}
     }
