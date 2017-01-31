@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 15:19:03 2017 Benjamin DUHIEU
+** Last update Tue Jan 31 15:47:54 2017 marc brout
 */
 
 #include <unistd.h>
@@ -26,15 +26,8 @@ static void	node_fuse(t_page *start, t_node *cur)
   cur->used = false;
   start->size_left += cur->size;
   if (cur->prev && !cur->prev->used)
-    {
-      cur->prev->size += cur->size + sizeof(t_node);
-      cur->prev->next = cur->next;
-      if (cur->next)
-	cur->next->prev = cur->prev;
-      cur = cur->prev;
-      start->size_left += sizeof(t_node);
-    }
-  if (cur->next && !cur->next->used)
+    cur = cur->prev;
+  while (cur->next && !cur->next->used)
     {
       cur->size += sizeof(t_node) + cur->next->size;
       cur->next = cur->next->next;
