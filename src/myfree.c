@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 11:28:19 2017 Benjamin DUHIEU
+** Last update Tue Jan 31 11:30:54 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -23,7 +23,7 @@ static bool	page_is_free(t_page *toFree)
   cur = &toFree->root;
   while (cur)
     {
-      if (cur->used == true)
+      if (cur->used)
 	return false;
       cur = cur->next;
     }
