@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 14:36:32 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 15:21:39 2017 Benjamin DUHIEU
 */
 
 #include <string.h>
@@ -13,13 +13,14 @@
 #include "mymalloc.h"
 
 pthread_mutex_t	mutex;
+t_page		*root;
 
 static void	*change_ptr(t_node *cur, size_t size)
 {
   t_node	*getPage;
   t_page	*page;
   void		*val;
-  
+
   pthread_mutex_lock(&mutex);
   getPage = cur;
   while (getPage->prev)
@@ -30,11 +31,40 @@ static void	*change_ptr(t_node *cur, size_t size)
   return (val);
 }
 
+static bool	check_ptr(t_node *cur)
+{
+  t_page	*page;
+  t_node	*tmp;
+
+  pthread_mutex_lock(&mutex);
+  page = root;
+  while (page)
+    {
+      tmp = &page->root;
+      while (tmp)
+	{
+	  if ((uintptr_t)tmp + sizeof(t_node) == (uintptr_t)cur)
+	    {
+	      pthread_mutex_unlock(&mutex);
+	      return (true);
+	    }
+	  tmp = tmp->next;
+	}
+      page = page->next;
+    }
+  pthread_mutex_unlock(&mutex);
+  return (false);
+}
+
 void		*realloc(void *ptr, size_t size)
 {
   t_node	*node;
   void		*cpy;
+  static int i = 0;
 
+  i++;
+  if (ptr && size && !check_ptr(ptr))
+    return (ptr);
   node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
   if (!size)
     {
@@ -50,9 +80,10 @@ void		*realloc(void *ptr, size_t size)
 	{
 	  if ((cpy = malloc(size)) == NULL)
 	    return (NULL);
+	  pthread_mutex_lock(&mutex);
 	  memmove(cpy, ptr, node->size);
-	  if (ptr)
-	    free (ptr);
+	  pthread_mutex_unlock(&mutex);
+	  free (ptr);
 	  return (cpy);
 	}
     }
