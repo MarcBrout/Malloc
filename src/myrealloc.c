@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 11:37:10 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 11:49:03 2017 Benjamin DUHIEU
 */
 
 #include <string.h>
@@ -51,5 +51,7 @@ void		*realloc(void *ptr, size_t size)
 	return (memcpy(cpy, ptr, node->size));
       }
   }
+  else if (size)
+    return (malloc(size));
   return (ptr);
 }
