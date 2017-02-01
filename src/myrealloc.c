@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 16:10:28 2017 Brout
+** Last update Wed Feb  1 16:12:40 2017 Brout
 */
 
 #include <string.h>
@@ -24,7 +24,7 @@ static void	*change_ptr(t_node *cur, size_t size)
   pthread_mutex_lock(&mutex);
   getPage = cur;
   while (getPage->prev)
-    getPage = getPage->prev;
+     getPage = getPage->prev;
   page = (t_page*)((uintptr_t)getPage - (sizeof(t_page) - sizeof(t_node)));
   val = replace_node(cur, size, page);
   pthread_mutex_unlock(&mutex);
@@ -36,6 +36,7 @@ static bool	check_ptr(t_node *cur)
   t_page	*page;
   t_node	*tmp;
 
+  pthread_mutex_lock(&mutex);
   page = root;
   while (page)
     {
@@ -43,11 +44,15 @@ static bool	check_ptr(t_node *cur)
       while (tmp)
 	{
 	  if ((uintptr_t)tmp + sizeof(t_node) == (uintptr_t)cur)
-	    return (true);
+	    {
+	      pthread_mutex_unlock(&mutex);
+	      return (true);
+	    }
 	  tmp = tmp->next;
 	}
       page = page->next;
     }
+  pthread_mutex_unlock(&mutex);
   return (false);
 }
 

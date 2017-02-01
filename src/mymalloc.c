@@ -5,10 +5,8 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Wed Feb  1 13:59:09 2017 Brout
+** Last update Wed Feb  1 14:44:29 2017 Benjamin DUHIEU
 */
-
-#include <string.h>
 
 #include <unistd.h>
 #include <stdio.h>
