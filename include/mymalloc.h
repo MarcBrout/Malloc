@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Wed Feb  1 10:01:23 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 11:30:53 2017 Brout
 */
 
 #ifndef MYMALLOC_H_
@@ -40,6 +40,7 @@ extern pthread_mutex_t	mutex;
 ** src/mymalloc.c
 */
 t_node	*create_node(t_node *cur, t_node *next, size_t size, bool used);
+void	*replace_node(t_node *cur, size_t size, t_page *page);
 void	*add_node(size_t size, t_page *page);
 void	*malloc(size_t size);
 

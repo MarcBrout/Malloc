@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Wed Feb  1 10:44:39 2017 Brout
+** Last update Wed Feb  1 11:26:07 2017 Brout
 */
 
 #include <unistd.h>
@@ -48,7 +48,7 @@ static void	*set_new_node(t_node *cur, size_t size, t_page *page)
   return ((void*)((uintptr_t) cur->next) + sizeof(t_node));
 }
 
-static void	*replace_node(t_node *cur, size_t size, t_page *page)
+void		*replace_node(t_node *cur, size_t size, t_page *page)
 {
   t_node	*new;
 
