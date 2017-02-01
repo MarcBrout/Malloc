@@ -5,8 +5,10 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Wed Feb  1 10:02:57 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 11:30:06 2017 Benjamin DUHIEU
 */
+
+#include <string.h>
 
 #include <unistd.h>
 #include <stdio.h>
@@ -143,4 +145,52 @@ void				*malloc(size_t size)
     }
   pthread_mutex_unlock(&mutex);
   return (add_page(size)); 
+}
+
+int main()
+{
+  size_t pageSize = getpagesize() * 42;
+  int count = 0;
+  void *ptr2 = realloc(NULL, 2);
+  
+  if (ptr2 == NULL)
+      write(1, "Not good\n", 9);
+  else
+    {
+      ptr2 = realloc(ptr2, pageSize);
+      if (!ptr2)
+	write(1, "Not good\n", 9);
+      else
+	{
+	  write(1, "To be continued..\n", 19);
+	  realloc(memset(ptr2, 0, pageSize), 0);
+	  count = count + 1;
+	  ptr2 = realloc(NULL, pageSize + getpagesize());
+	  void *ptr3 = ptr2;
+	  void *sbreak = sbrk(0);
+	  ptr2 = realloc(ptr2, 500);
+	  if (!ptr2)
+	    write(1, "Not good\n", 9);
+	  else
+	    {
+	      write(1, "To be continued..\n", 19);
+	      if (ptr3 == ptr2)
+		{
+		  write(1, "Test1\n", 6);
+		  count++;
+		}
+	      if (sbrk(0) == sbreak)
+		{
+		  write(1, "Test2\n", 6);
+		  count++;
+		}
+	      realloc(ptr2, 0);
+	      if (count == 3)
+		write(1, "All test passed <3", 18);
+	      else
+		write(1, "Not good\n", 9);
+	    }
+	}
+    }
+  return 0;
 }
