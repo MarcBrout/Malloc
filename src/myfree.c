@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Tue Jan 31 16:51:07 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 10:08:55 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -25,16 +25,9 @@ static void	node_fuse(t_page *start, t_node *cur)
 {
   cur->used = false;
   start->size_left += cur->size;
-  if (cur->prev && !cur->prev->used)
-    {
-      cur->prev->next = cur->next;
-      if (cur->next)
-	cur->next->prev = cur->prev;
-      cur->prev->size += cur->size + sizeof(t_node);
-      cur = cur->prev;
-      start->size_left += sizeof(t_node);
-    }
-  if (cur->next && !cur->next->used)
+  //if (cur->prev && !cur->prev->used)
+  //  cur = cur->prev;
+  while (cur->next && !cur->next->used)
     {
       cur->size += sizeof(t_node) + cur->next->size;
       cur->next = cur->next->next;
@@ -74,13 +67,13 @@ void		free(void *ptr)
       prev = tmp;
       tmp = tmp->next;
     }
-  if (tmp && !tmp->next && page_is_free(tmp))
+   if (tmp && !tmp->next && page_is_free(tmp))
     {
       if (prev)
 	prev->next = NULL;
       else
 	root = NULL;
       sbrk(-tmp->size);
-    }
-  pthread_mutex_unlock(&mutex);
+      }
+   pthread_mutex_unlock(&mutex);
 }

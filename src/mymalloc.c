@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Tue Jan 31 13:06:34 2017 marc brout
+** Last update Tue Jan 31 15:09:57 2017 marc brout
 */
 
 #include <unistd.h>
@@ -68,7 +68,7 @@ static void	*replace_node(t_node *cur, size_t size, t_page *page)
 	  // write(1, "\n", 1);
 	  cur->size = size;
 	  cur->next = new;
-	  new->prev = cur;
+	  cur->next->prev = cur;
 	  page->size_left -= sizeof(t_node);
 	}
     }
@@ -125,7 +125,7 @@ void		*add_node(size_t size, t_page *page)
 void				*malloc(size_t size)
 {
   pthread_mutex_lock(&mutex);
- //  show_alloc_mem();
+  //  show_alloc_mem();
   //  write(1, "MALLOC SIZE IN = ", strlen("MALLOC SIZE IN = "));
   //  putHexa(size, "0123456789");
   //  write(1, "\n", 1);
