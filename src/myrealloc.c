@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 13:16:15 2017 Brout
+** Last update Wed Feb  1 14:24:01 2017 Brout
 */
 
 #include <string.h>
@@ -13,6 +13,7 @@
 #include "mymalloc.h"
 
 pthread_mutex_t	mutex;
+t_page		*root;
 
 static void	*change_ptr(t_node *cur, size_t size)
 {
@@ -30,11 +31,33 @@ static void	*change_ptr(t_node *cur, size_t size)
   return (val);
 }
 
+static bool	check_ptr(t_node *cur)
+{
+  t_page	*page;
+  t_node	*tmp;
+  
+  page = root;
+  while (page)
+    {
+      tmp = &page->root;
+      while (tmp)
+	{
+	  if ((uintptr_t)tmp + sizeof(t_node) == (uintptr_t)cur)
+	    return (true);
+	  tmp = tmp->next;
+	}
+      page = page->next;
+    }
+  return (false);
+}
+
 void		*realloc(void *ptr, size_t size)
 {
   t_node	*node;
   void		*cpy;
 
+  if (!check_ptr(ptr))
+    return (ptr);
   node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
   if (!size)
     {
@@ -50,9 +73,10 @@ void		*realloc(void *ptr, size_t size)
 	{
 	  if ((cpy = malloc(size)) == NULL)
 	    return (NULL);
+	  memmove(cpy, ptr, node->size);
 	  if (ptr)
 	    free (ptr);
-	  return (memmove(cpy, ptr, node->size));
+	  return (cpy);
 	}
     }
   else if (!ptr)
