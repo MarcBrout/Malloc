@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Sun Jan 29 11:45:05 2017 marc brout
-** Last update Wed Feb  1 09:32:24 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 12:56:31 2017 Brout
 */
 
 #include <string.h>
@@ -19,6 +19,6 @@ void		*calloc(size_t nmemb, size_t size)
   data = malloc(nmemb * size);
   if (!data)
       return (NULL);
-  memset(data, 0,nmemb * size);
+  memset(data, 0, nmemb * size);
   return (data);
 }
