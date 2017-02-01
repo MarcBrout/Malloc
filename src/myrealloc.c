@@ -5,31 +5,51 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 10:26:09 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 11:29:55 2017 Brout
 */
 
 #include <string.h>
 #include <stdint.h>
 #include "mymalloc.h"
 
+static void	*change_ptr(t_node *cur, size_t size)
+{
+  t_node	*getPage;
+  t_page	*page;
+
+  getPage = cur;
+  while (cur->prev)
+    cur = cur->prev;
+  page = (t_page*)((uintptr_t)cur - (sizeof(t_page) - sizeof(t_node)));
+  return (replace_node(cur, size, page));
+}
+
 void		*realloc(void *ptr, size_t size)
 {
-  size_t	nodeSize;
+  t_node	*node;
   void		*cpy;
 
-  if (ptr && (((t_node*)((uintptr_t)ptr - sizeof(t_node)))->size == size))
-    return (ptr);
-  if (ptr && !size)
-    return (NULL);
-  cpy = malloc(size);
-  if (ptr && size)
-    {
-      nodeSize = ((t_node*)((uintptr_t)ptr - sizeof(t_node)))->size;
-      if (nodeSize > size)
-	nodeSize = size;
-      cpy = memcpy(cpy, ptr, nodeSize);
-    }
-  if (ptr)
-    free(ptr);
-  return (cpy);
+  node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
+  if (ptr && node->size != size))
+  {
+    if (!size)
+      {
+	free(ptr);
+	return (NULL);
+      }
+    if (size < size->node)
+      {
+	
+      }
+    else
+      {
+	cpy = malloc(size);
+	if (!cpy)
+	  return (NULL);
+	if (ptr)
+	  free (ptr);
+	return (memcpy(cpy, ptr, node->size));
+      }
+  }
+  return (ptr);
 }
