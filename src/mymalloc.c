@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Tue Jan 31 15:09:57 2017 marc brout
+** Last update Wed Feb  1 10:02:57 2017 Benjamin DUHIEU
 */
 
 #include <unistd.h>
@@ -78,32 +78,31 @@ static void	*replace_node(t_node *cur, size_t size, t_page *page)
 
 void		*add_node(size_t size, t_page *page)
 {
-  static int	i = 0;
   t_node	*cur;
   //  size_t	acc;
   cur = &page->root;
 
-  ++i;
   //  acc = sizeof(t_page) - sizeof(t_node);
   while (cur->next /*&& acc < page->size*/)
-    {
-            if (!cur->used && cur->size > size)
-      	return (replace_node(cur, size, page));
-      
-      //      acc += cur->size + sizeof(t_node);
-      cur = cur->next;
-    }
-  //    write(1, "LASTONE\n", 8);
+  {
+    if (!cur->used && cur->size > size)
+      return (replace_node(cur, size, page));
+    
+    //      acc += cur->size + sizeof(t_node);
+    cur = cur->next;
+  }
+  //  write(1, "LASTONE\n", 8);
   //  putHexa(totalSize, "0123456789");
-  // write(1, "\n", 1);
-  //write(1, "acc = ", 6);
+  //  write(1, "\n", 1);
+  //  write(1, "acc = ", 6);
   //  putHexa(acc, "0123456789");
   //  write(1, "\n", 1);
   //  write(1, "page->size = ", 13);
   //  putHexa(page->size, "0123456789");
   //  write(1, "\n", 1);
-    if (!cur->used && cur->size > size)
-      return (replace_node(cur, size, page));
+
+  if (!cur->used && cur->size > size)
+    return (replace_node(cur, size, page));
  
   //  write(1, "add_node = ", 11);
   //  putHexa(page->size - ((uintptr_t)cur - (uintptr_t)page), "0123456789");
@@ -124,6 +123,7 @@ void		*add_node(size_t size, t_page *page)
 
 void				*malloc(size_t size)
 {
+  
   pthread_mutex_lock(&mutex);
   //  show_alloc_mem();
   //  write(1, "MALLOC SIZE IN = ", strlen("MALLOC SIZE IN = "));
