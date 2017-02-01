@@ -1,11 +1,11 @@
 /*
-1;4402;0c** mymalloc.h in /home/brout_m/rendu/system/PSU_2016_malloc/src
+** mymalloc.h in /home/brout_m/rendu/system/PSU_2016_malloc/src
 ** 
 ** Made by Brout
 ** Login   <marc.brout@epitech.eu>
 ** 
 ** Started on  Mon Jan 23 15:48:38 2017 Brout
-** Last update Wed Feb  1 11:30:53 2017 Brout
+** Last update Wed Feb  1 15:54:02 2017 Brout
 */
 
 #ifndef MYMALLOC_H_

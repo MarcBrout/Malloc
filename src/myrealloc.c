@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 14:41:35 2017 Brout
+** Last update Wed Feb  1 16:10:28 2017 Brout
 */
 
 #include <string.h>
@@ -35,7 +35,7 @@ static bool	check_ptr(t_node *cur)
 {
   t_page	*page;
   t_node	*tmp;
-  
+
   page = root;
   while (page)
     {
@@ -51,10 +51,25 @@ static bool	check_ptr(t_node *cur)
   return (false);
 }
 
+static void	*realloc_node(void *ptr, t_node *node, size_t size)
+{
+  void		*cpy;
+
+  if (size < node->size)
+    return (change_ptr(node, size));
+  if ((cpy = malloc(size)) == NULL)
+    return (NULL);
+  pthread_mutex_lock(&mutex);
+  memmove(cpy, ptr, node->size);
+  pthread_mutex_unlock(&mutex);
+  if (ptr)
+    free(ptr);
+  return (cpy);
+}
+
 void		*realloc(void *ptr, size_t size)
 {
   t_node	*node;
-  void		*cpy;
 
   if (ptr && size && !check_ptr(ptr))
     return (ptr);
@@ -64,23 +79,9 @@ void		*realloc(void *ptr, size_t size)
       if (ptr)
 	free(ptr);
       return (NULL);
-    }    
-  if (ptr && node->size != size)
-    {
-      if (size < node->size)
-	return (change_ptr(node, size));
-      else
-	{
-	  if ((cpy = malloc(size)) == NULL)
-	    return (NULL);
-	  pthread_mutex_lock(&mutex);
-	  memmove(cpy, ptr, node->size);
-	  pthread_mutex_unlock(&mutex);
-	  if (ptr)
-	    free (ptr);
-	  return (cpy);
-	}
     }
+  if (ptr && node->size != size)
+    return (realloc_node(ptr, node, size));
   else if (!ptr)
     return (malloc(size));
   return (ptr);

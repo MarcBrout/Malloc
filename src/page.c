@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 14:26:01 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 10:16:07 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 16:01:30 2017 Brout
 */
 
 #include <stdint.h>
@@ -23,13 +23,9 @@ static t_page	*create_page(size_t size, size_t pageSize)
   node->next = NULL;
   node->size = pageSize;
   node->size_left = pageSize - size - sizeof(t_page);
-  /*  write(1, "size_left = ", 13);
-  putHexa(node->size_left, "0123456789");
-  write(1, "\n", 1); */
   create_node(&node->root, NULL, size, true);
   return (node);
 }
-
 
 void		*set_node_page(size_t size, t_page **node)
 {
@@ -44,77 +40,45 @@ void		*set_node_page(size_t size, t_page **node)
   return ((void *)((uintptr_t)(*node) + sizeof(t_page)));
 }
 
+static void	*check_last_node(size_t size, t_page *tmp)
+{
+  void		*pos;
+  t_page	*new_page;
+
+  if (tmp->size_left > size)
+    {
+      if ((pos = add_node(size, tmp)) == NULL)
+	{
+	  pos = set_node_page(size, &new_page);
+	  tmp->next = new_page;
+	}
+    }
+  else
+    {
+      pos = set_node_page(size, &new_page);
+      tmp->next = new_page;
+    }
+  return (pos);
+}
+
 void		*add_page(size_t size)
 {
   t_page	*tmp;
-  t_page	*new_page;
   void		*pos;
-  
-  tmp = root;
-  /*  write(1, "size = ", 7);
-  putHexa(size, "0123456789");
-  write(1, "\n", 1);*/
 
-  //   if (size == 1024)
-  //     __asm__ volatile ("int $3");
+  tmp = root;
   while (tmp->next)
     {
       if (tmp->size_left > size)
 	{
-	  //	  write(1, "size = ", 7);
-	  //	  putHexa(size, "0123456789");
-	  //	  write(1, " ", 1);
-	  //	  write(1, "size_left = ", 12);
-	  //	  putHexa(tmp->size_left, "0123456789");
-	  //	  write(1, "\n", 1);	  
 	  if ((pos = add_node(size, tmp)) == NULL)
 	    {
 	      tmp = tmp->next;
 	      continue;
 	    }
-	  //	  write(1, "pos = ", 6);
-	  //	  putHexa((uintptr_t)pos, "0123456789ABCDEF");
-	  //	  write(1, "\n", 1);
-	  //	  write(1, "pos->next = ", 12);
-	  //	  putHexa((uintptr_t)((t_node*)((uintptr_t)pos + size)), "0123456789ABCDEF");
-	  //	  write(1, "\n", 1);
-	  return pos;
+	  return (pos);
 	}
       tmp = tmp->next;
-      }
-
-  if (tmp->size_left > size)
-    {
-      //      write(1, "size = ", 7);
-      //      putHexa(size, "0123456789");
-      //      write(1, " ", 1);
-      //      write(1, "size_left = ", 12);
-      //      putHexa(tmp->size_left, "0123456789");
-      //      write(1, "\n", 1);	  
-      if ((pos = add_node(size, tmp)) == NULL)
-	{
-	  //	  write(1, "COUCOU2\n", 8);
-	  pos = set_node_page(size, &new_page);
-	  tmp->next = new_page;
-	}
-      //      write(1, "pos2 = ", 7);
-      //      putHexa((uintptr_t)pos, "0123456789ABCDEF");
-      //      write(1, "\n", 1);
-      //      write(1, "pos2->next = ", 13);
-      //      putHexa((uintptr_t)((t_node*)((uintptr_t)pos + size)), "0123456789ABCDEF");
-      //      write(1, "\n", 1);
     }
-
-  else
-    {
-      pos = set_node_page(size, &new_page);
-      tmp->next = new_page;
-      //      write(1, "pos3 = ", 7);
-      //      putHexa((uintptr_t)pos, "0123456789ABCDEF");
-      //      write(1, "\n", 1);
-      //      write(1, "pos3->next = ", 13);
-      //      putHexa((uintptr_t)((t_node*)((uintptr_t)pos + size)), "0123456789ABCDEF");
-      //      write(1, "\n", 1);
-      }
-  return (pos);
+  return (check_last_node(size, tmp));
 }
