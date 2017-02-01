@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 11:49:03 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 13:09:21 2017 Benjamin DUHIEU
 */
 
 #include <string.h>
@@ -30,28 +30,26 @@ void		*realloc(void *ptr, size_t size)
   void		*cpy;
 
   node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
+  if (!size)
+    {
+      free(ptr);
+      return (NULL);
+    }    
   if (ptr && node->size != size)
-  {
-    if (!size)
-      {
-	free(ptr);
-	return (NULL);
-      }
-    if (size < node->size)
-      {
+    {
+      if (size < node->size)
 	return (change_ptr(node, size));
-      }
-    else
-      {
-	cpy = malloc(size);
-	if (!cpy)
-	  return (NULL);
-	if (ptr)
-	  free (ptr);
-	return (memcpy(cpy, ptr, node->size));
-      }
-  }
-  else if (size)
+      else
+	{
+	  cpy = malloc(size);
+	  if (!cpy)
+	    return (NULL);
+	  if (ptr)
+	    free (ptr);
+	  return (memmove(cpy, ptr, node->size));
+	}
+    }
+  else if (!ptr)
     return (malloc(size));
   return (ptr);
 }
