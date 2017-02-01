@@ -5,19 +5,30 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 09:59:34 2017 Benjamin DUHIEU
+** Last update Wed Feb  1 10:26:09 2017 Benjamin DUHIEU
 */
 
 #include <string.h>
+#include <stdint.h>
 #include "mymalloc.h"
 
-void	*realloc(void *ptr, size_t size)
+void		*realloc(void *ptr, size_t size)
 {
-  void	*cpy;
+  size_t	nodeSize;
+  void		*cpy;
 
+  if (ptr && (((t_node*)((uintptr_t)ptr - sizeof(t_node)))->size == size))
+    return (ptr);
+  if (ptr && !size)
+    return (NULL);
   cpy = malloc(size);
   if (ptr && size)
-    cpy = memcpy(cpy, ptr, size);
+    {
+      nodeSize = ((t_node*)((uintptr_t)ptr - sizeof(t_node)))->size;
+      if (nodeSize > size)
+	nodeSize = size;
+      cpy = memcpy(cpy, ptr, nodeSize);
+    }
   if (ptr)
     free(ptr);
   return (cpy);
