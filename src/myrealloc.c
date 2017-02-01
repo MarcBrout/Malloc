@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 16:12:40 2017 Brout
+** Last update Wed Feb  1 16:31:10 2017 Brout
 */
 
 #include <string.h>
@@ -78,7 +78,9 @@ void		*realloc(void *ptr, size_t size)
 
   if (ptr && size && !check_ptr(ptr))
     return (ptr);
+  pthread_mutex_lock(&mutex);
   node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
+  pthread_mutex_unlock(&mutex);
   if (!size)
     {
       if (ptr)

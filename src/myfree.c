@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 18:02:44 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 16:14:29 2017 Brout
+** Last update Wed Feb  1 16:16:06 2017 Brout
 */
 
 #include <unistd.h>
@@ -65,13 +65,13 @@ void		free(void *ptr)
       prev = tmp;
       tmp = tmp->next;
     }
-   if (tmp && !tmp->next && page_is_free(tmp))
+  if (tmp && !tmp->next && page_is_free(tmp))
     {
       if (prev)
 	prev->next = NULL;
       else
 	root = NULL;
       sbrk(-tmp->size);
-      }
-   pthread_mutex_unlock(&mutex);
+    }
+  pthread_mutex_unlock(&mutex);
 }
