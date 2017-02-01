@@ -5,7 +5,7 @@
 ** Login   <duhieu_b@epitech.net>
 ** 
 ** Started on  Fri Jan 27 17:54:00 2017 Benjamin DUHIEU
-** Last update Wed Feb  1 14:24:01 2017 Brout
+** Last update Wed Feb  1 14:41:35 2017 Brout
 */
 
 #include <string.h>
@@ -20,12 +20,12 @@ static void	*change_ptr(t_node *cur, size_t size)
   t_node	*getPage;
   t_page	*page;
   void		*val;
-  
+
+  pthread_mutex_lock(&mutex);
   getPage = cur;
   while (getPage->prev)
     getPage = getPage->prev;
   page = (t_page*)((uintptr_t)getPage - (sizeof(t_page) - sizeof(t_node)));
-  pthread_mutex_lock(&mutex);
   val = replace_node(cur, size, page);
   pthread_mutex_unlock(&mutex);
   return (val);
@@ -56,7 +56,7 @@ void		*realloc(void *ptr, size_t size)
   t_node	*node;
   void		*cpy;
 
-  if (!check_ptr(ptr))
+  if (ptr && size && !check_ptr(ptr))
     return (ptr);
   node = ((t_node*)((uintptr_t)ptr - sizeof(t_node)));
   if (!size)
@@ -73,7 +73,9 @@ void		*realloc(void *ptr, size_t size)
 	{
 	  if ((cpy = malloc(size)) == NULL)
 	    return (NULL);
+	  pthread_mutex_lock(&mutex);
 	  memmove(cpy, ptr, node->size);
+	  pthread_mutex_unlock(&mutex);
 	  if (ptr)
 	    free (ptr);
 	  return (cpy);
