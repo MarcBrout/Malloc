@@ -5,7 +5,7 @@
 ## Login   <marc.brout@epitech.eu>
 ## 
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Tue Jan 31 17:01:14 2017 Benjamin DUHIEU
+## Last update Wed Feb  1 10:43:28 2017 Brout
 ##
 
 MAKE_DIR=	./
@@ -36,7 +36,7 @@ LDFLAGS=	-pthread
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g $(LDFLAGS) -D_REENTRANT 
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g $(LDFLAGS)
 
 all: $(NAME)
 
