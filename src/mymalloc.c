@@ -5,7 +5,7 @@
 ** Login   <marc.brout@epitech.eu>
 **
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Tue Feb  7 10:28:00 2017 brout_m
+** Last update Tue Feb  7 11:57:58 2017 brout_m
 */
 
 #include <unistd.h>
@@ -83,7 +83,8 @@ void		*malloc(size_t size)
   void		*val;
 
   pthread_mutex_lock(&mutex);
-  if (size > (long)sysconf(_SC_PHYS_PAGES) * (long)sysconf(_SC_PAGE_SIZE))
+  if (size > (unsigned long)sysconf(_SC_PHYS_PAGES) *
+      (unsigned long)sysconf(_SC_PAGE_SIZE))
     return (NULL);
   size = size % sizeof(long) ? size + sizeof(long) -
     size % sizeof(long) : size;

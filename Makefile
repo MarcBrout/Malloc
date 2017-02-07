@@ -1,11 +1,11 @@
 ##
 ## Makefile for my_malloc in /home/brout_m/rendu/system/PSU_2016_malloc
-## 
+##
 ## Made by Brout
 ## Login   <marc.brout@epitech.eu>
-## 
+##
 ## Started on  Mon Jan 23 13:38:11 2017 Brout
-## Last update Wed Feb  1 10:43:28 2017 Brout
+## Last update Tue Feb  7 12:01:30 2017 brout_m
 ##
 
 MAKE_DIR=	./
@@ -29,14 +29,14 @@ INC=		./include
 
 CC=		gcc
 
-CFLAGS=		-I$(INC) -fPIC -g -W -Wall -Wextra -Werror
+CFLAGS=		-I$(INC) -fPIC -W -Wall -Wextra -Werror
 
-LDFLAGS=	-pthread
+LDFLAGS=
 
 RM=		rm -rf
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) -fPIC -shared $(OBJ) -g $(LDFLAGS)
+	$(CC) -o $(NAME) -fPIC -shared $(OBJ) $(LDFLAGS)
 
 all: $(NAME)
 
