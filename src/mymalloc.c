@@ -1,11 +1,11 @@
 /*
 ** myMalloc.c for  in /home/brout_m/rendu/system/PSU_2016_malloc/src
-** 
+**
 ** Made by Brout
 ** Login   <marc.brout@epitech.eu>
-** 
+**
 ** Started on  Mon Jan 23 15:43:40 2017 Brout
-** Last update Wed Feb  1 14:44:29 2017 Benjamin DUHIEU
+** Last update Tue Feb  7 10:28:00 2017 brout_m
 */
 
 #include <unistd.h>
@@ -83,6 +83,8 @@ void		*malloc(size_t size)
   void		*val;
 
   pthread_mutex_lock(&mutex);
+  if (size > (long)sysconf(_SC_PHYS_PAGES) * (long)sysconf(_SC_PAGE_SIZE))
+    return (NULL);
   size = size % sizeof(long) ? size + sizeof(long) -
     size % sizeof(long) : size;
   if (!root)
